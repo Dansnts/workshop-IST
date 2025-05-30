@@ -1,6 +1,6 @@
 # Apache Airflow Project Overview — Group Presentation
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Apache Airflow Project Overview — Group Presentation](#apache-airflow-project-overview--group-presentation)
   - [Table of Contents](#-table-of-contents)
