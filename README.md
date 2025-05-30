@@ -41,7 +41,7 @@
 
 ---
 
-## 📘 Context
+## Context
 
 Our team of data engineers and data scientists is working within a Swiss small-to-medium business (SMB) that heavily relies on data. Our manager is exploring the adoption of **open-source tools** and **cloud-based services** to improve our workflows in data engineering and data science.
 
@@ -49,7 +49,7 @@ We chose to investigate **Apache Airflow**, an open-source workflow orchestratio
 
 ---
 
-## 🎯 Project Goal
+## Project Goal
 
 To demonstrate the value of Apache Airflow through:
 
@@ -60,7 +60,7 @@ To demonstrate the value of Apache Airflow through:
 
 ---
 
-## 💡 Why Apache Airflow?
+## Why Apache Airflow?
 
 Apache Airflow is a platform to programmatically author, schedule, and monitor workflows. It’s particularly powerful for ETL (Extract, Transform, Load) and data pipeline automation.
 
@@ -79,7 +79,7 @@ Apache Airflow is a platform to programmatically author, schedule, and monitor w
 
 ---
 
-## 🧪 Example Use Case: Daily CSV Aggregation
+## Example Use Case: Daily CSV Aggregation
 
 Imagine our company receives daily CSV sales data from multiple branches. The goal is to:
 
@@ -92,7 +92,7 @@ Airflow lets us build and schedule this pipeline with clear, maintainable logic,
 
 ---
 
-## 💰 Cost Considerations
+## Cost Considerations
 
 ### Self-Hosted with Docker (LocalExecutor + PostgreSQL)
 
@@ -109,7 +109,7 @@ Use **self-hosted Airflow** for prototyping and small pipelines; consider **mana
 
 ---
 
-## ⚠️ Strategic Considerations
+## Strategic Considerations
 
 ### Pros:
 
@@ -129,7 +129,7 @@ Use **self-hosted Airflow** for prototyping and small pipelines; consider **mana
 
 ---
 
-## ✅ When to Use Airflow
+## When to Use Airflow
 
 Use Airflow if:
 
@@ -184,7 +184,7 @@ airflow tasks logs <dag_id> <task_id> <execution_date>
 
 ---
 
-## 📚 Further Resources
+## Further Resources
 
 * [Official Airflow Docs](https://airflow.apache.org/docs/)
 * [Astronomer Blog](https://www.astronomer.io/blog/)
@@ -192,14 +192,14 @@ airflow tasks logs <dag_id> <task_id> <execution_date>
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
@@ -239,7 +239,7 @@ docker compose up
 
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 airflow-docker/
@@ -253,7 +253,7 @@ airflow-docker/
 
 ---
 
-## 📝 Example DAG
+## Example DAG
 
 An example DAG is located in `dags/example_dag.py`:
 
@@ -271,7 +271,7 @@ with DAG('example_dag', start_date=datetime(2023, 1, 1), schedule_interval='@dai
 
 ---
 
-## ✅ Useful Commands
+## Useful Commands
 
 ### Re-initialize the database (⚠️ This will erase metadata!)
 
@@ -290,7 +290,7 @@ docker compose build
 
 ---
 
-## 🚩 Stopping Services
+## Stopping Services
 
 ```bash
 docker compose down
@@ -304,7 +304,7 @@ docker compose down -v
 
 ---
 
-## 🧠 Notes
+## Notes
 
 * The Airflow scheduler and webserver use the `LocalExecutor`.
 * PostgreSQL is used as the metadata database.
@@ -313,6 +313,6 @@ docker compose down -v
 
 ---
 
-## 📮 Contact
+## Contact
 
-For questions or suggestions, feel free to open an issue or PR.
+For questions or suggestions, feel free to open an issue or do a pull request.
