@@ -3,41 +3,41 @@
 ## Table of Contents
 
 - [Apache Airflow Project Overview — Group Presentation](#apache-airflow-project-overview--group-presentation)
-  - [Table of Contents](#-table-of-contents)
-  - [Context](#-context)
-  - [Project Goal](#-project-goal)
-  - [Why Apache Airflow?](#-why-apache-airflow)
-  - [Example Use Case: Daily CSV Aggregation](#-example-use-case-daily-csv-aggregation)
-  - [Cost Considerations](#-cost-considerations)
+  - [Table of Contents](#table-of-contents)
+  - [Context](#context)
+  - [Project Goal](#project-goal)
+  - [Why Apache Airflow?](#why-apache-airflow)
+  - [What is a DAG?](#what-is-a-dag)
+  - [Why DAGs are Important in Airflow](#why-dags-are-important-in-airflow)
+  - [How DAGs Work in Airflow](#how-dags-work-in-airflow)
+  - [Example Use Case: Daily CSV Aggregation](#example-use-case-daily-csv-aggregation)
+  - [Cost Considerations](#cost-considerations)
     - [Self-Hosted with Docker (LocalExecutor + PostgreSQL)](#self-hosted-with-docker-localexecutor--postgresql)
-    - [Managed Airflow (e.g., AWS MWAA, Astronomer)](#managed-airflow-eg-aws-mwaa-astronomer)
-    - [Recommendation:](#recommendation)
-  - [Strategic Considerations](#️-strategic-considerations)
+    - [Managed Airflow (like AWS MWAA, Astronomer)](#managed-airflow-like-aws-mwaa-astronomer)
+    - [Our recommendation:](#our-recommendation)
+  - [Strategic Considerations](#strategic-considerations)
     - [Pros:](#pros)
     - [Cons:](#cons)
     - [Vendor Lock-In Risk:](#vendor-lock-in-risk)
-  - [When to Use Airflow](#-when-to-use-airflow)
-  - [Getting Started with Airflow (Cheat Sheet)](#-getting-started-with-airflow-cheat-sheet)
-    - [What It Does:](#what-it-does)
-    - [Installation (via Docker Compose)](#installation-via-docker-compose)
-    - [Basic CLI Commands](#basic-cli-commands)
+  - [When to Use Airflow](#when-to-use-airflow)
+  - [Getting Started with Airflow (Cheat Sheet)](#getting-started-with-airflow-cheat-sheet)
     - [Key Files:](#key-files)
-  - [Further Resources](#-further-resources)
-  - [Prerequisites](#-prerequisites)
-  - [Getting Started](#-getting-started)
+  - [Further Resources](#further-resources)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Build the Docker images](#2-build-the-docker-images)
     - [3. Initialize the Airflow database](#3-initialize-the-airflow-database)
     - [4. Create an Airflow admin user (optional but recommended)](#4-create-an-airflow-admin-user-optional-but-recommended)
     - [5. Start Airflow services](#5-start-airflow-services)
-  - [Directory Structure](#-directory-structure)
-  - [Example DAG](#-example-dag)
-  - [Useful Commands](#-useful-commands)
-    - [Re-initialize the database (This will erase metadata!)](#re-initialize-the-database-️-this-will-erase-metadata)
+  - [Directory Structure](#directory-structure)
+  - [Example DAG](#example-dag)
+  - [Useful Commands](#useful-commands)
+    - [Re-initialize the database (This will erase metadata!)](#re-initialize-the-database-this-will-erase-metadata)
     - [Install additional Python packages](#install-additional-python-packages)
-  - [Stopping Services](#-stopping-services)
-  - [Notes](#-notes)
-  - [Contact](#-contact)
+  - [Stopping Services](#stopping-services)
+  - [Notes](#notes)
+  - [Contact](#contact)
 
 ---
 
@@ -62,6 +62,8 @@ To demonstrate the value of Apache Airflow through:
 
 ## Why Apache Airflow?
 
+![image](./airflow.svg)
+
 Apache Airflow is a platform to programmatically author, schedule, and monitor workflows. It’s particularly powerful for ETL (Extract, Transform, Load) and data pipeline automation.
 
 **Key benefits:**
@@ -79,6 +81,39 @@ Apache Airflow is a platform to programmatically author, schedule, and monitor w
 
 ---
 
+## What is a DAG?
+
+DAG stands for **Directed Acyclic Graph**. In the context of Apache Airflow, a DAG is a collection of all the tasks you want to run, organized in a way that clearly defines their execution order and dependencies. Each node in the graph represents a task, and the edges (arrows) represent the dependencies between these tasks.
+
+- **Directed:** The tasks flow in a specific direction, from upstream to downstream.
+- **Acyclic:** There are no cycles or loops in the graph, meaning a task cannot depend on itself directly or indirectly.
+![image](./dag.png)
+
+Basicallly, a DAG in Apache Airflow is the backbone of our workflow orchestration. It ensures tasks run in a specific order without cycles, allows complex dependencies, and provides robust scheduling and monitoring capabilities.
+
+## Why DAGs are Important in Airflow
+
+Apache Airflow uses DAGs to orchestrate complex workflows. Here's why DAGs are crucial:
+
+1. **Workflow Management:** DAGs let us define the sequence and dependencies of tasks in a clear and manageable way.
+2. **Task Scheduling:** Airflow uses the DAG to schedule tasks and execute them in the correct order.
+3. **Failure Handling:** The DAG structure helps Airflow know what to do if a task fails, such as retrying or skipping dependent tasks.
+4. **Visualization:** Airflow's UI visually represents DAGs, making it easier to monitor and debug workflows.
+5. **Scalability:** By defining dependencies explicitly, Airflow can run tasks in parallel where possible, optimizing resource use.
+
+## How DAGs Work in Airflow
+
+- We need to write a DAG in Python code, defining tasks and their dependencies.
+- Airflow parses the DAG file and builds the DAG structure.
+- Based on the schedule you define, Airflow triggers the DAG runs.
+- Tasks execute respecting the defined order and dependencies.
+- Airflow tracks the status of each task and the overall DAG run.
+
+
+
+
+
+---
 ## Example Use Case: Daily CSV Aggregation
 
 Imagine our company receives daily CSV sales data from multiple branches. The goal is to:
@@ -97,15 +132,15 @@ Airflow lets us build and schedule this pipeline with clear, maintainable logic,
 ### Self-Hosted with Docker (LocalExecutor + PostgreSQL)
 
 * **Infrastructure**: On-premise or cloud VM (e.g., 2 vCPU, 4GB RAM)
-* **Monthly cost estimate**: \~CHF 25–50 (if hosted on a cloud VM like Hetzner or small AWS EC2 instance)
+* **Monthly cost estimate**: \~CHF 25–50 (if hosted on a  small AWS EC2 instance)
 
-### Managed Airflow (e.g., AWS MWAA, Astronomer)
+### Managed Airflow (like AWS MWAA, Astronomer)
 
 * **More scalable**, but starts at \~CHF 250/month
 
-### Recommendation:
+### Our recommendation:
 
-Use **self-hosted Airflow** for prototyping and small pipelines; consider **managed services** for larger teams and critical production workflows.
+The best case scénario for us is to use **self-hosted Airflow** for prototyping and small pipelines; consider **managed services** for larger teams and critical production workflows.
 
 ---
 
@@ -131,50 +166,27 @@ Use **self-hosted Airflow** for prototyping and small pipelines; consider **mana
 
 ## When to Use Airflow
 
-Use Airflow if:
+Use if:
 
-* You have recurring tasks/data processes
-* Your workflows involve multiple dependencies
-* You need flexibility and observability
+* We have recurring tasks/data processes
+* Oue workflows involve multiple dependencies
+* We need flexibility and observability
 
-Avoid Airflow if:
+Avoid  if:
 
-* You only need simple, single-step jobs
-* Your team lacks Python or DevOps skills
+* We only need simple, single-step jobs
+* Our team lacks Python or DevOps skills
 
 ---
 
-## 🚀 Getting Started with Airflow (Cheat Sheet)
+## Getting Started with Airflow (Cheat Sheet)
 
-### What It Does:
+![d](./cheatcheat-0.jpg)
+![d](./cheatcheat-1.jpg)
 
-Apache Airflow automates workflows such as data pipelines using Python-based DAGs. You define what to do and when, and Airflow handles the scheduling, logging, and retries.
 
-### Installation (via Docker Compose)
 
-```bash
-git clone https://github.com/Dansnts/workshop-IST
-cd airflow-docker
-docker compose build
-docker compose run airflow-webserver airflow db init
-docker compose run airflow-webserver airflow users create \
-  --username admin --password admin --firstname Airflow --lastname Admin \
-  --role Admin --email admin@example.com
-docker compose up
-```
-
-### Basic CLI Commands
-
-```bash
-# Trigger a DAG manually
-airflow dags trigger <dag_id>
-
-# View DAGs
-airflow dags list
-
-# Check task logs
-airflow tasks logs <dag_id> <task_id> <execution_date>
-```
+---
 
 ### Key Files:
 
@@ -273,7 +285,7 @@ with DAG('example_dag', start_date=datetime(2023, 1, 1), schedule_interval='@dai
 
 ## Useful Commands
 
-### Re-initialize the database (⚠️ This will erase metadata!)
+### Re-initialize the database (This will erase metadata!)
 
 ```bash
 docker compose down -v
