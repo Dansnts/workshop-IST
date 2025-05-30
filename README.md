@@ -62,7 +62,7 @@ To demonstrate the value of Apache Airflow through:
 
 ## Why Apache Airflow?
 
-![image](./airflow.svg)
+<img src="./airflow.svg" width="100px" />
 
 Apache Airflow is a platform to programmatically author, schedule, and monitor workflows. It’s particularly powerful for ETL (Extract, Transform, Load) and data pipeline automation.
 
@@ -87,7 +87,10 @@ DAG stands for **Directed Acyclic Graph**. In the context of Apache Airflow, a D
 
 - **Directed:** The tasks flow in a specific direction, from upstream to downstream.
 - **Acyclic:** There are no cycles or loops in the graph, meaning a task cannot depend on itself directly or indirectly.
-![image](./dag.png)
+
+<img src="./dag.png" width="400px" text-align="center" />
+
+
 
 Basicallly, a DAG in Apache Airflow is the backbone of our workflow orchestration. It ensures tasks run in a specific order without cycles, allows complex dependencies, and provides robust scheduling and monitoring capabilities.
 
@@ -108,9 +111,6 @@ Apache Airflow uses DAGs to orchestrate complex workflows. Here's why DAGs are c
 - Based on the schedule you define, Airflow triggers the DAG runs.
 - Tasks execute respecting the defined order and dependencies.
 - Airflow tracks the status of each task and the overall DAG run.
-
-
-
 
 
 ---
