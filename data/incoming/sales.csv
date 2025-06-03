@@ -1,0 +1,5 @@
+# data/incoming/sales.csv
+product,price,quantity
+Widget,20.5,5
+Gadget,15.0,3
+
