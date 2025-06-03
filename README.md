@@ -200,7 +200,6 @@ Avoid  if:
 
 * [Official Airflow Docs](https://airflow.apache.org/docs/)
 * [Astronomer Blog](https://www.astronomer.io/blog/)
-* [Awesome Apache Airflow (GitHub)](https://github.com/jghiloni/awesome-apache-airflow)
 
 ---
 
