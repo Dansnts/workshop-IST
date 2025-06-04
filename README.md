@@ -200,6 +200,11 @@ Avoid  if:
 
 * [Official Airflow Docs](https://airflow.apache.org/docs/)
 * [Astronomer Blog](https://www.astronomer.io/blog/)
+* [Airflow GitHub](https://github.com/apache/airflow) 
+* [Learn Apache Airflow in 10 Minutes](https://www.youtube.com/watch?v=5peQThvQmQk&ab_channel=DarshilParmar)
+
+
+
 
 ---
 
