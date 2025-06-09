@@ -21,7 +21,8 @@ def process_files():
     summaries = []
 
     for file in files:
-        df = pd.read_csv(f'/opt/airflow/data/incoming/{file}')
+        path = f'/opt/airflow/data/incoming/{file}'
+        df = pd.read_csv(path, skiprows=1)  # Ignore la ligne de commentaire
         summary = {
             'file': file,
             'rows': len(df),
@@ -31,6 +32,7 @@ def process_files():
 
     with open('/opt/airflow/data/outgoing/summary.json', 'w') as f:
         json.dump(summaries, f)
+
 
 def mock_upload():
     print("Simulating upload to cloud... done.")
